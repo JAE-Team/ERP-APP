@@ -2,8 +2,8 @@ OBJECT Codeunit 50061 Menu_Projecte
 {
   OBJECT-PROPERTIES
   {
-    Date=02/03/23;
-    Time=17:46:06;
+    Date=03/03/23;
+    Time=19:18:13;
     Modified=Yes;
     Version List=;
   }
@@ -27,17 +27,80 @@ OBJECT Codeunit 50061 Menu_Projecte
             + FORMAT(CR)+FORMAT(LF)+ 'Codi 3 - Descripci¢: P…gina amb tots els usuaris'
             + FORMAT(CR)+FORMAT(LF)+ 'Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia'
             + FORMAT(CR)+FORMAT(LF)+ 'Codi 5 - Descripci¢: Estad¡stica de la quantitat de transaccions per dia'
-            , 'Menu IETI Corn', '', 100, 100);
+            , 'IETI Corn', '', 100, 100);
 
             CASE input OF
                '1':
                 BEGIN
                   Window.MsgBox('Descripci¢: Consulta taula d usuaris', 0, '');
+                  idUsuari_2 := Window.InputBox('Introdueix l id de l usuari'
+                  , 'IETI Corn', '', 100, 10);
+
+                  found_2 := FALSE;
+                  Usuari.SETFILTER(Usuari.userId, idUsuari_2);
+                  WITH Usuari DO BEGIN
+                    IF FIND('-') THEN
+                      REPEAT
+                        found_2 := TRUE;
+                      UNTIL NEXT = 0;
+                    END;
+
+                IF(found_2 = FALSE) THEN BEGIN
+                 Window.MsgBox('No s ha trobat l usuari', 0, '');
+                  END;
+
+                IF(found_2 = TRUE) THEN BEGIN
+                 Window.MsgBox('Usuari trobat', 0, '');
+                  END;
+
                END;
                  '2':
                 BEGIN
                   Window.MsgBox('Codi 2 - Descripci¢: Consulta transaccions d un ususari', 0, '');
-               END;
+                  idUsuari_2 := Window.InputBox('Introdueix l id de l usuari'
+                  , 'IETI Corn', '', 100, 10);
+
+                  found_2 := FALSE;
+                  Usuari.SETFILTER(Usuari.userId, idUsuari_2);
+                  WITH Usuari DO BEGIN
+                    IF FIND('-') THEN
+                      REPEAT
+                        found_2 := TRUE;
+                      UNTIL NEXT = 0;
+                    END;
+
+                IF(found_2 = FALSE) THEN BEGIN
+                 Window.MsgBox('No s ha trobat l usuari', 0, '');
+                  END;
+
+                IF(found_2 = TRUE) THEN BEGIN
+                  MeuDialeg.OPEN('UsuariTransaccions\Emisor: #1######\Receptor: #2######\Quantitat: #3######\Data: #4######');
+                  Transaccio.SETFILTER(Transaccio.userDestiny, idUsuari_2);
+                  WITH Transaccio DO BEGIN
+                    IF FIND('-') THEN
+                      REPEAT
+                        MeuDialeg.UPDATE(1,Transaccio.userOrigin);
+                        MeuDialeg.UPDATE(2,Transaccio.userDestiny);
+                        MeuDialeg.UPDATE(3,Transaccio.ammount);
+                        MeuDialeg.UPDATE(4,Transaccio.timeFinish);
+                        SLEEP(1000);
+                      UNTIL NEXT = 0;
+                    END;
+                    Transaccio.RESET;
+                    Transaccio.SETFILTER(Transaccio.userOrigin, idUsuari_2);
+                    WITH Transaccio DO BEGIN
+                      IF FIND('-') THEN
+                        REPEAT
+                          MeuDialeg.UPDATE(1,Transaccio.userOrigin);
+                          MeuDialeg.UPDATE(2,Transaccio.userDestiny);
+                          MeuDialeg.UPDATE(3,Transaccio.ammount);
+                          MeuDialeg.UPDATE(4,Transaccio.timeFinish);
+                          SLEEP(1000);
+                        UNTIL NEXT = 0;
+                      END;
+                   END;
+
+                END;
                  '3':
                 BEGIN
                   Window.MsgBox('Codi 3 - Descripci¢: P…gina amb tots els usuaris', 0, '');
@@ -67,6 +130,12 @@ OBJECT Codeunit 50061 Menu_Projecte
       input@1106000001 : Text;
       CR@1106000004 : Char;
       LF@1106000003 : Char;
+      idUsuari_2@1106000005 : Text;
+      MeuDialeg@1106000006 : Dialog;
+      Usuari@1106000007 : Record 50021;
+      Transaccio@1106000008 : Record 50022;
+      found_2@1106000009 : Boolean;
+    ;
 
     BEGIN
     END.

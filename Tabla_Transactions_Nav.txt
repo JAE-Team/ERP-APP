@@ -1,0 +1,38 @@
+OBJECT Table 50022 IETICorn_transactions
+{
+  OBJECT-PROPERTIES
+  {
+    Date=03/03/23;
+    Time=17:42:47;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+  }
+  FIELDS
+  {
+    { 1   ;   ;token               ;Text250        }
+    { 2   ;   ;userOrigin          ;Text250        }
+    { 3   ;   ;userDestiny         ;Text250        }
+    { 4   ;   ;ammount             ;Decimal        }
+    { 5   ;   ;accepted            ;Text250        }
+    { 6   ;   ;timeSetup           ;DateTime       }
+    { 7   ;   ;timeStart           ;DateTime       }
+    { 8   ;   ;timeFinish          ;DateTime      ;NotBlank=Yes }
+  }
+  KEYS
+  {
+    {    ;token                                   ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

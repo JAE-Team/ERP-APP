@@ -1,5 +1,5 @@
 timestamp;id;userId;userPassword;userName;userSurname;userEmail;userBalance;userStatus;lastStatusChange;sessionToken
-;1;123;test;Pedro;si;si@si.com;100;active;2/3/2023 16:10;ST-2695675b-7499-4ad3-bcc1-4904f5bc7081
-;2;12;test;Test;test;test@si.com;100;active;2/3/2023 16:10;Not Logged
-;3;67754;test;Prueba;Prueba2;si@si.com;100;active;2/3/2023 18:26;Not Logged
-;5;623045380;hola123;Ismael;Morillo;juan@gmail.com;100;active;3/3/2023 17:20;ST-22220a99-85ad-4355-aa5d-01d66e95073d
+;1;123;test;Pedro;si;si@si.com;100;active;02/03/2023 16:10;ST-2695675b-7499-4ad3-bcc1-4904f5bc7081
+;2;12;test;Test;test;test@si.com;100;active;02/03/2023 16:10;Not Logged
+;3;67754;test;Prueba;Prueba2;si@si.com;100;active;02/03/2023 18:26;Not Logged
+;5;623045380;hola123;Ismael;Morillo;juan@gmail.com;100;active;03/03/2023 17:20;ST-22220a99-85ad-4355-aa5d-01d66e95073d

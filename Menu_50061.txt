@@ -2,8 +2,8 @@ OBJECT Codeunit 50061 Menu_Projecte
 {
   OBJECT-PROPERTIES
   {
-    Date=03/03/23;
-    Time=19:18:13;
+    Date=04/03/23;
+    Time=18:35:29;
     Modified=Yes;
     Version List=;
   }
@@ -27,14 +27,14 @@ OBJECT Codeunit 50061 Menu_Projecte
             + FORMAT(CR)+FORMAT(LF)+ 'Codi 3 - Descripci¢: P…gina amb tots els usuaris'
             + FORMAT(CR)+FORMAT(LF)+ 'Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia'
             + FORMAT(CR)+FORMAT(LF)+ 'Codi 5 - Descripci¢: Estad¡stica de la quantitat de transaccions per dia'
-            , 'IETI Corn', '', 100, 100);
+            , 'IETI Corn', '', 750, 300);
 
             CASE input OF
                '1':
                 BEGIN
                   Window.MsgBox('Descripci¢: Consulta taula d usuaris', 0, '');
                   idUsuari_2 := Window.InputBox('Introdueix l id de l usuari'
-                  , 'IETI Corn', '', 100, 10);
+                  , 'IETI Corn', '', 750, 300);
 
                   found_2 := FALSE;
                   Usuari.SETFILTER(Usuari.userId, idUsuari_2);
@@ -58,7 +58,7 @@ OBJECT Codeunit 50061 Menu_Projecte
                 BEGIN
                   Window.MsgBox('Codi 2 - Descripci¢: Consulta transaccions d un ususari', 0, '');
                   idUsuari_2 := Window.InputBox('Introdueix l id de l usuari'
-                  , 'IETI Corn', '', 100, 10);
+                  , 'IETI Corn', '', 750, 300);
 
                   found_2 := FALSE;
                   Usuari.SETFILTER(Usuari.userId, idUsuari_2);
@@ -74,9 +74,11 @@ OBJECT Codeunit 50061 Menu_Projecte
                   END;
 
                 IF(found_2 = TRUE) THEN BEGIN
-                  MeuDialeg.OPEN('UsuariTransaccions\Emisor: #1######\Receptor: #2######\Quantitat: #3######\Data: #4######');
+                  MeuDialeg.OPEN('Transaccions pagades per '+idUsuari_2 +'\Emisor: #1######\Receptor: #2######\Quantitat: #3######\Data: #4######');
                   Transaccio.SETFILTER(Transaccio.userDestiny, idUsuari_2);
                   WITH Transaccio DO BEGIN
+                    SETCURRENTKEY(timeFinish);
+                    ASCENDING(TRUE);
                     IF FIND('-') THEN
                       REPEAT
                         MeuDialeg.UPDATE(1,Transaccio.userOrigin);
@@ -86,9 +88,13 @@ OBJECT Codeunit 50061 Menu_Projecte
                         SLEEP(1000);
                       UNTIL NEXT = 0;
                     END;
+                    MeuDialeg.CLOSE;
+                    MeuDialeg.OPEN('Transaccions rebudes per '+idUsuari_2 +'\Emisor: #1######\Receptor: #2######\Quantitat: #3######\Data: #4######');
                     Transaccio.RESET;
                     Transaccio.SETFILTER(Transaccio.userOrigin, idUsuari_2);
                     WITH Transaccio DO BEGIN
+                      SETCURRENTKEY(timeFinish);
+                      ASCENDING(TRUE);
                       IF FIND('-') THEN
                         REPEAT
                           MeuDialeg.UPDATE(1,Transaccio.userOrigin);
@@ -99,15 +105,47 @@ OBJECT Codeunit 50061 Menu_Projecte
                         UNTIL NEXT = 0;
                       END;
                    END;
+                   MeuDialeg.CLOSE;
 
                 END;
                  '3':
                 BEGIN
                   Window.MsgBox('Codi 3 - Descripci¢: P…gina amb tots els usuaris', 0, '');
+                  usersPage.RUNMODAL;
                END;
                  '4':
                 BEGIN
                   Window.MsgBox('Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia', 0, '');
+
+                  countDays := 0;
+                  countTransactions := 0;
+
+                  WITH Transaccio DO BEGIN
+                     oldestDate := CURRENTDATETIME;
+                     earliestDate := CURRENTDATETIME;
+                      IF FIND('-') THEN
+                        REPEAT
+
+                          IF (Transaccio.timeFinish < earliestDate) THEN
+                          earliestDate := Transaccio.timeFinish;
+
+                          IF (Transaccio.timeFinish > oldestDate) THEN
+                          oldestDate := Transaccio.timeFinish;
+
+                          countTransactions := countTransactions +1;
+                        UNTIL NEXT = 0;
+                      END;
+                  oldestDateDays := DT2DATE(oldestDate);
+                  earliestDateDays := DT2DATE(earliestDate);
+
+                  countDays := oldestDateDays - earliestDateDays;
+
+                  trPerDay := countTransactions / countDays;
+                  Window.MsgBox('En total tenim '+FORMAT(countTransactions) +' transaccions'
+                  + 'en '+FORMAT(countDays) +' dies.'
+                  + FORMAT(CR)+FORMAT(LF)+ 'Aixo ens dona '+FORMAT(trPerDay)
+                  +' transaccions per dia', 0, '');
+
                END;
                  '5':
                 BEGIN
@@ -135,7 +173,14 @@ OBJECT Codeunit 50061 Menu_Projecte
       Usuari@1106000007 : Record 50021;
       Transaccio@1106000008 : Record 50022;
       found_2@1106000009 : Boolean;
-    ;
+      usersPage@1106000010 : Page 50021;
+      countDays@1106000011 : Integer;
+      countTransactions@1106000012 : Integer;
+      oldestDate@1106000013 : DateTime;
+      earliestDate@1106000014 : DateTime;
+      oldestDateDays@1106000015 : Date;
+      earliestDateDays@1106000016 : Date;
+      trPerDay@1106000017 : Decimal;
 
     BEGIN
     END.

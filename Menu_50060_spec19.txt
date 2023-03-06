@@ -1,0 +1,60 @@
+OBJECT Codeunit 50060 CodeUnitMenu_Spec19
+{
+  OBJECT-PROPERTIES
+  {
+    Date=06/03/23;
+    Time=18:42:42;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            Window.MsgBox('Anem a insertar les 5 opcions', 0, '');
+            SLEEP(500);
+            MenuTable.DELETEALL;
+            contCodi := 1;
+            Window.MsgBox('Esborrades les dades de la taula', 0, '');
+            MeuDialeg.OPEN('Insertat \Codi -'+FORMAT(contCodi)+': #1######\');
+            SLEEP(500);
+            MenuTable.code := 1;
+            MenuTable.Description := 'Codi 1 - Descripci¢: Consulta taula d usuaris';
+            MenuTable.INSERT;
+            MeuDialeg.UPDATE(1, 'Descripci¢: Consulta taula d usuaris');
+            SLEEP(500);
+            MenuTable.code := 2;
+            MenuTable.Description := 'Codi 2 - Descripci¢: Consulta transaccions d un ususari';
+            MenuTable.INSERT;
+            MeuDialeg.UPDATE(1, 'Descripci¢: Consulta transaccions d un ususari');
+            SLEEP(500);
+            MenuTable.code := 3;
+            MenuTable.Description := 'Codi 3 - Descripci¢: P…gina amb tots els usuaris';
+            MenuTable.INSERT;
+            MeuDialeg.UPDATE(1, 'Descripci¢: P…gina amb tots els usuaris');
+            SLEEP(500);
+            MenuTable.code := 4;
+            MenuTable.Description := 'Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia';
+            MenuTable.INSERT;
+            MeuDialeg.UPDATE(1, 'Descripci¢: Estad¡stica del nombre de transaccions per dia');
+            SLEEP(500);
+            MenuTable.code := 5;
+            MenuTable.Description := 'Codi 5 - Descripci¢: Estad¡stica de la quantitat de transaccions per dia';
+            MenuTable.INSERT;
+            MeuDialeg.UPDATE(1, 'Descripci¢: Estad¡stica de la quantitat de transaccions per dia');
+            SLEEP(500);
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Window@1106000000 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      MenuTable@1106000001 : Record 50020;
+      MeuDialeg@1106000002 : Dialog;
+      contCodi@1106000003 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

@@ -1,0 +1,40 @@
+OBJECT Table 50021 IETICorn_users
+{
+  OBJECT-PROPERTIES
+  {
+    Date=03/03/23;
+    Time=17:03:03;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+  }
+  FIELDS
+  {
+    { 1   ;   ;id                  ;Integer        }
+    { 2   ;   ;userId              ;Text250        }
+    { 3   ;   ;userPassword        ;Text250        }
+    { 4   ;   ;userName            ;Text250        }
+    { 5   ;   ;userSurname         ;Text250        }
+    { 6   ;   ;userEmail           ;Text250        }
+    { 7   ;   ;userBalance         ;Decimal        }
+    { 8   ;   ;userStatus          ;Text250        }
+    { 9   ;   ;lastStatusChange    ;DateTime       }
+    { 10  ;   ;sessionToken        ;Text250        }
+  }
+  KEYS
+  {
+    {    ;id                                      ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

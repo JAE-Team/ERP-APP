@@ -1,0 +1,47 @@
+OBJECT Page 50021 Users_IETI
+{
+  OBJECT-PROPERTIES
+  {
+    Date=04/03/23;
+    Time=13:31:20;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table50021;
+    PageType=List;
+  }
+  CONTROLS
+  {
+    { 1106000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1106000001;1;Group  ;
+                Name=Group;
+                GroupType=Repeater }
+
+    { 1106000002;2;Field  ;
+                SourceExpr=userId }
+
+    { 1106000003;2;Field  ;
+                SourceExpr=userName }
+
+    { 1106000004;2;Field  ;
+                SourceExpr=userSurname }
+
+    { 1106000005;2;Field  ;
+                SourceExpr=userEmail }
+
+    { 1106000006;2;Field  ;
+                SourceExpr=userBalance }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

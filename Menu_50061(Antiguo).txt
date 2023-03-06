@@ -1,9 +1,9 @@
-OBJECT Codeunit 50061 Menu_Projecte
+OBJECT Codeunit 50061 Menu_Projecte_spec20
 {
   OBJECT-PROPERTIES
   {
-    Date=04/03/23;
-    Time=18:35:29;
+    Date=06/03/23;
+    Time=18:11:12;
     Modified=Yes;
     Version List=;
   }
@@ -33,25 +33,20 @@ OBJECT Codeunit 50061 Menu_Projecte
                '1':
                 BEGIN
                   Window.MsgBox('Descripci¢: Consulta taula d usuaris', 0, '');
-                  idUsuari_2 := Window.InputBox('Introdueix l id de l usuari'
-                  , 'IETI Corn', '', 750, 300);
+                  MeuDialeg.OPEN('Dades de l usuari \Telefon: #1######\Nom: #2######\Cognom: #3######\Email: #4######\Balance: #5######');
 
-                  found_2 := FALSE;
-                  Usuari.SETFILTER(Usuari.userId, idUsuari_2);
                   WITH Usuari DO BEGIN
                     IF FIND('-') THEN
                       REPEAT
-                        found_2 := TRUE;
-                      UNTIL NEXT = 0;
+                        MeuDialeg.UPDATE(1, Usuari.userId);
+                        MeuDialeg.UPDATE(2, Usuari.userName);
+                        MeuDialeg.UPDATE(3, Usuari.userSurname);
+                        MeuDialeg.UPDATE(4, Usuari.userEmail);
+                        MeuDialeg.UPDATE(5, Usuari.userBalance);
+                        SLEEP(1000);
+                      UNTIL NEXT =0;
                     END;
 
-                IF(found_2 = FALSE) THEN BEGIN
-                 Window.MsgBox('No s ha trobat l usuari', 0, '');
-                  END;
-
-                IF(found_2 = TRUE) THEN BEGIN
-                 Window.MsgBox('Usuari trobat', 0, '');
-                  END;
 
                END;
                  '2':
@@ -66,6 +61,7 @@ OBJECT Codeunit 50061 Menu_Projecte
                     IF FIND('-') THEN
                       REPEAT
                         found_2 := TRUE;
+                        SLEEP(1000);
                       UNTIL NEXT = 0;
                     END;
 

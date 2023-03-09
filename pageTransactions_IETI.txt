@@ -1,0 +1,56 @@
+OBJECT Page 50022 TransactionsPage_IETI
+{
+  OBJECT-PROPERTIES
+  {
+    Date=07/03/23;
+    Time=19:06:59;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table50022;
+    PageType=List;
+  }
+  CONTROLS
+  {
+    { 1106000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1106000001;1;Group  ;
+                Name=Group;
+                GroupType=Repeater }
+
+    { 1106000002;2;Field  ;
+                SourceExpr=token }
+
+    { 1106000003;2;Field  ;
+                SourceExpr=userOrigin }
+
+    { 1106000004;2;Field  ;
+                SourceExpr=userDestiny }
+
+    { 1106000005;2;Field  ;
+                SourceExpr=ammount }
+
+    { 1106000006;2;Field  ;
+                SourceExpr=accepted }
+
+    { 1106000007;2;Field  ;
+                SourceExpr=timeSetup }
+
+    { 1106000008;2;Field  ;
+                SourceExpr=timeStart }
+
+    { 1106000009;2;Field  ;
+                SourceExpr=timeFinish }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

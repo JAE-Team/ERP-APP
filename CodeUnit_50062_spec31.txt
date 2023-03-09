@@ -1,0 +1,69 @@
+OBJECT Codeunit 50062 CodeUnit_Spec31
+{
+  OBJECT-PROPERTIES
+  {
+    Date=09/03/23;
+    Time=16:29:15;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            Window.MsgBox('Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia', 0, '');
+
+                  countDays := 0;
+                  countTransactions := 0;
+
+                  WITH Transaccio DO BEGIN
+                      oldestDate := CURRENTDATETIME;
+                      earliestDate := CURRENTDATETIME;
+                      IF FIND('-') THEN
+                        REPEAT
+
+                          IF (Transaccio.timeFinish < earliestDate) THEN
+                          earliestDate := Transaccio.timeFinish;
+
+                          IF (Transaccio.timeFinish > oldestDate) THEN
+                          oldestDate := Transaccio.timeFinish;
+
+                          countTransactions := countTransactions +1;
+                        UNTIL NEXT = 0;
+                      END;
+                  oldestDateDays := DT2DATE(oldestDate);
+                  earliestDateDays := DT2DATE(earliestDate);
+
+                  countDays := oldestDateDays - earliestDateDays;
+
+                  trPerDay := countTransactions / countDays;
+
+                  Window.MsgBox('En total tenim '+FORMAT(countTransactions) +' transaccions '
+                  + 'en '+FORMAT(countDays) +' dies.'
+                  + ' Aixo ens dona '+FORMAT(trPerDay, 5)
+                  +' transaccions per dia', 0, '');
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Window@1106000010 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      CR@1106000009 : Char;
+      LF@1106000008 : Char;
+      MeuDialeg@1106000007 : Dialog;
+      Transaccio@1106000006 : Record 50022;
+      countDays@1106000005 : Integer;
+      countTransactions@1106000004 : Integer;
+      oldestDate@1106000003 : DateTime;
+      earliestDate@1106000002 : DateTime;
+      oldestDateDays@1106000001 : Date;
+      earliestDateDays@1106000000 : Date;
+      trPerDay@1106000011 : Decimal;
+      DecimalToRound@1106000012 : Decimal;
+      Result@1106000013 : Decimal;
+
+    BEGIN
+    END.
+  }
+}
+

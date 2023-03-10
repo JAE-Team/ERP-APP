@@ -2,8 +2,8 @@ OBJECT Codeunit 50062 CodeUnit_Spec31
 {
   OBJECT-PROPERTIES
   {
-    Date=09/03/23;
-    Time=16:29:15;
+    Date=10/03/23;
+    Time=16:37:26;
     Modified=Yes;
     Version List=;
   }
@@ -12,28 +12,52 @@ OBJECT Codeunit 50062 CodeUnit_Spec31
     OnRun=BEGIN
             Window.MsgBox('Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia', 0, '');
 
+                  MeuDialeg.OPEN('Dia: #1###### \Data: #2######\Transaccions: #3######');
+
+                  difDays := 0;
                   countDays := 0;
                   countTransactions := 0;
+                  transactionsDay := 0;
 
                   WITH Transaccio DO BEGIN
-                      oldestDate := CURRENTDATETIME;
-                      earliestDate := CURRENTDATETIME;
+                      dateFormerT := CURRENTDATETIME;
+                      dateCurrentT := CURRENTDATETIME;
+                      SETCURRENTKEY(timeFinish);
+                      ASCENDING(TRUE);
                       IF FIND('-') THEN
                         REPEAT
-
-                          IF (Transaccio.timeFinish < earliestDate) THEN
-                          earliestDate := Transaccio.timeFinish;
-
-                          IF (Transaccio.timeFinish > oldestDate) THEN
-                          oldestDate := Transaccio.timeFinish;
-
+                          transactionsDay := transactionsDay +1;
                           countTransactions := countTransactions +1;
-                        UNTIL NEXT = 0;
-                      END;
-                  oldestDateDays := DT2DATE(oldestDate);
-                  earliestDateDays := DT2DATE(earliestDate);
 
-                  countDays := oldestDateDays - earliestDateDays;
+                          dateFormerT := dateCurrentT;
+                          dateCurrentT := Transaccio.timeFinish;
+                          dateFormerTDays := DT2DATE(dateCurrentT);
+                          dateCurrentTDays := DT2DATE(dateFormerT);
+
+                          dateDay := DT2DATE(Transaccio.timeFinish);
+
+                          difDays := dateFormerTDays - dateCurrentTDays;
+
+                          IF(difDays > 0) THEN BEGIN
+                            countDays := countDays +1;
+                            difDays := 0;
+                            MeuDialeg.UPDATE(1, countDays);
+                            MeuDialeg.UPDATE(2, dateFormerTDays);
+                            MeuDialeg.UPDATE(3, transactionsDay);
+                            transactionsDay := 0;
+                            SLEEP(1500);
+                            END;
+
+                        UNTIL NEXT = 0;
+                          countDays := countDays +1;
+                          difDays := 0;
+                          MeuDialeg.UPDATE(1, countDays);
+                          MeuDialeg.UPDATE(2, dateCurrentTDays);
+                          MeuDialeg.UPDATE(3, transactionsDay);
+                          transactionsDay := 0;
+                          SLEEP(1500);
+                      END;
+
 
                   trPerDay := countTransactions / countDays;
 
@@ -52,15 +76,18 @@ OBJECT Codeunit 50062 CodeUnit_Spec31
       LF@1106000008 : Char;
       MeuDialeg@1106000007 : Dialog;
       Transaccio@1106000006 : Record 50022;
-      countDays@1106000005 : Integer;
+      difDays@1106000005 : Integer;
       countTransactions@1106000004 : Integer;
-      oldestDate@1106000003 : DateTime;
-      earliestDate@1106000002 : DateTime;
-      oldestDateDays@1106000001 : Date;
-      earliestDateDays@1106000000 : Date;
+      dateFormerT@1106000003 : DateTime;
+      dateCurrentT@1106000002 : DateTime;
+      dateFormerTDays@1106000001 : Date;
+      dateCurrentTDays@1106000000 : Date;
       trPerDay@1106000011 : Decimal;
       DecimalToRound@1106000012 : Decimal;
       Result@1106000013 : Decimal;
+      dateDay@1106000014 : Date;
+      countDays@1106000015 : Integer;
+      transactionsDay@1106000016 : Integer;
 
     BEGIN
     END.

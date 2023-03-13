@@ -1,4 +1,4 @@
-OBJECT Codeunit 50061 Menu_Projecte_spec20
+OBJECT Codeunit 50064 MenuFinal_Projecte
 {
   OBJECT-PROPERTIES
   {
@@ -10,11 +10,11 @@ OBJECT Codeunit 50061 Menu_Projecte_spec20
   PROPERTIES
   {
     OnRun=BEGIN
-            // Codi 1 - Descripci¢: Consulta taula d'usuaris
-            // Codi 2 - Descripci¢: Consulta transaccions d'un ususari
-            // Codi 3 - Descripci¢: P…gina amb tots els usuaris
-            // Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia
-            // Codi 5 - Descripci¢: Estad¡stica de la quantitat de transaccions per dia
+            // Codi 1 - Descripciï¿½: Consulta taula d'usuaris
+            // Codi 2 - Descripciï¿½: Consulta transaccions d'un ususari
+            // Codi 3 - Descripciï¿½: Pï¿½gina amb tots els usuaris
+            // Codi 4 - Descripciï¿½: Estadï¿½stica del nombre de transaccions per dia
+            // Codi 5 - Descripciï¿½: Estadï¿½stica de la quantitat de transaccions per dia
 
             CR := 13; // Carriage Return - (Hex $0D)
             LF := 10; // Line Feed - (Hex $0A)
@@ -22,17 +22,17 @@ OBJECT Codeunit 50061 Menu_Projecte_spec20
 
             WHILE menuActiu DO BEGIN
             input := Window.InputBox('Escull una opcio entre 1 i 5, altre caracter SORTIR'
-            + FORMAT(CR)+FORMAT(LF)+ 'Codi 1 - Descripci¢: Consulta taula d usuaris'
-            + FORMAT(CR)+FORMAT(LF)+ 'Codi 2 - Descripci¢: Consulta transaccions d un ususari'
-            + FORMAT(CR)+FORMAT(LF)+ 'Codi 3 - Descripci¢: P…gina amb tots els usuaris'
-            + FORMAT(CR)+FORMAT(LF)+ 'Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia'
-            + FORMAT(CR)+FORMAT(LF)+ 'Codi 5 - Descripci¢: Estad¡stica de la quantitat de transaccions per dia'
+            + FORMAT(CR)+FORMAT(LF)+ 'Codi 1 - Descripciï¿½: Consulta taula d usuaris'
+            + FORMAT(CR)+FORMAT(LF)+ 'Codi 2 - Descripciï¿½: Consulta transaccions d un ususari'
+            + FORMAT(CR)+FORMAT(LF)+ 'Codi 3 - Descripciï¿½: Pï¿½gina amb tots els usuaris'
+            + FORMAT(CR)+FORMAT(LF)+ 'Codi 4 - Descripciï¿½: Estadï¿½stica del nombre de transaccions per dia'
+            + FORMAT(CR)+FORMAT(LF)+ 'Codi 5 - Descripciï¿½: Estadï¿½stica de la quantitat de transaccions per dia'
             , 'IETI Corn', '', 750, 300);
 
             CASE input OF
                '1':
                 BEGIN
-                  Window.MsgBox('Descripci¢: Consulta taula d usuaris', 0, '');
+                  Window.MsgBox('Descripciï¿½: Consulta taula d usuaris', 0, '');
                   MeuDialeg.OPEN('Dades de l usuari \Telefon: #1######\Nom: #2######\Cognom: #3######\Email: #4######\Balance: #5######');
 
                   WITH Usuari DO BEGIN
@@ -51,7 +51,7 @@ OBJECT Codeunit 50061 Menu_Projecte_spec20
                END;
                  '2':
                 BEGIN
-                  Window.MsgBox('Codi 2 - Descripci¢: Consulta transaccions d un ususari', 0, '');
+                  Window.MsgBox('Codi 2 - Descripciï¿½: Consulta transaccions d un ususari', 0, '');
                   idUsuari_2 := Window.InputBox('Introdueix l id de l usuari'
                   , 'IETI Corn', '', 750, 300);
 
@@ -106,12 +106,12 @@ OBJECT Codeunit 50061 Menu_Projecte_spec20
                 END;
                  '3':
                 BEGIN
-                  Window.MsgBox('Codi 3 - Descripci¢: P…gina amb tots els usuaris', 0, '');
+                  Window.MsgBox('Codi 3 - Descripciï¿½: Pï¿½gina amb tots els usuaris', 0, '');
                   usersPage.RUNMODAL;
                END;
                  '4':
                 BEGIN
-                  Window.MsgBox('Codi 4 - Descripci¢: Estad¡stica del nombre de transaccions per dia', 0, '');
+                  Window.MsgBox('Codi 4 - Descripciï¿½: Estadï¿½stica del nombre de transaccions per dia', 0, '');
 
                   countDays := 0;
                   countTransactions := 0;
@@ -145,7 +145,7 @@ OBJECT Codeunit 50061 Menu_Projecte_spec20
                END;
                  '5':
                 BEGIN
-                  Window.MsgBox('Codi 5 - Descripci¢: Estad¡stica de la quantitat de transaccions per dia', 0, '');
+                  Window.MsgBox('Codi 5 - Descripciï¿½: Estadï¿½stica de la quantitat de transaccions per dia', 0, '');
                END;
               ELSE
                 BEGIN

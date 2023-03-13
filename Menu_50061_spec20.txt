@@ -2,8 +2,8 @@ OBJECT Codeunit 50061 Menu_Projecte_spec20
 {
   OBJECT-PROPERTIES
   {
-    Date=06/03/23;
-    Time=18:14:11;
+    Date=09/03/23;
+    Time=15:44:56;
     Modified=Yes;
     Version List=;
   }
@@ -125,13 +125,6 @@ OBJECT Codeunit 50061 Menu_Projecte_spec20
       Transaccio@1106000008 : Record 50022;
       found_2@1106000009 : Boolean;
       usersPage@1106000010 : Page 50021;
-      countDays@1106000011 : Integer;
-      countTransactions@1106000012 : Integer;
-      oldestDate@1106000013 : DateTime;
-      earliestDate@1106000014 : DateTime;
-      oldestDateDays@1106000015 : Date;
-      earliestDateDays@1106000016 : Date;
-      trPerDay@1106000017 : Decimal;
 
     BEGIN
     END.

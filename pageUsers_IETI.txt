@@ -1,0 +1,60 @@
+OBJECT Page 50021 UsersPage_IETI
+{
+  OBJECT-PROPERTIES
+  {
+    Date=09/03/23;
+    Time=15:39:45;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    SourceTable=Table50021;
+    PageType=List;
+    ActionList=ACTIONS
+    {
+      { 1106000007;  ;ActionContainer;
+                      ActionContainerType=NewDocumentItems }
+      { 1106000008;1 ;Action    ;
+                      Name=Transferencies_Pagades;
+                      RunObject=Page 50022;
+                      RunPageLink=userOrigin=FIELD(userId) }
+      { 1106000009;1 ;Action    ;
+                      Name=Transferencies_Rebudes;
+                      RunObject=Page 50022;
+                      RunPageLink=userDestiny=FIELD(userId) }
+    }
+  }
+  CONTROLS
+  {
+    { 1106000000;0;Container;
+                ContainerType=ContentArea }
+
+    { 1106000001;1;Group  ;
+                Name=Group;
+                GroupType=Repeater }
+
+    { 1106000002;2;Field  ;
+                SourceExpr=userId }
+
+    { 1106000003;2;Field  ;
+                SourceExpr=userName }
+
+    { 1106000004;2;Field  ;
+                SourceExpr=userSurname }
+
+    { 1106000005;2;Field  ;
+                SourceExpr=userEmail }
+
+    { 1106000006;2;Field  ;
+                SourceExpr=userBalance }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+
